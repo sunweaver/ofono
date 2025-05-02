@@ -334,6 +334,8 @@ static int mbim_enable(struct ofono_modem *modem)
 					mbim_device_closed, modem, NULL);
 	mbim_device_set_debug(md->device, mbim_debug, "MBIM:", NULL);
 
+	mbim_device_get_version(md->device);
+
 	return -EINPROGRESS;
 }
 
