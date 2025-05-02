@@ -390,12 +390,22 @@ static void mbim_subscriber_ready_status_changed(struct mbim_message *message,
 	char *imsi;
 	char *iccid;
 	uint32_t ready_info;
+	uint32_t ready_flags;
+	bool r;
 
 	DBG("");
 
-	if (!mbim_message_get_arguments(message, "ussu",
-					&ready_state, &imsi,
-					&iccid, &ready_info))
+	if (mbim_device_check_mbimex_version(sd->device, 3, 0)) {
+		r = mbim_message_get_arguments(message, "uussu",
+						&ready_state, &ready_flags, &imsi,
+						&iccid, &ready_info);
+	} else {
+		r = mbim_message_get_arguments(message, "ussu",
+						&ready_state, &imsi,
+						&iccid, &ready_info);
+	}
+
+	if (!r)
 		return;
 
 	l_free(sd->iccid);
@@ -418,6 +428,7 @@ static void mbim_subscriber_ready_status_cb(struct mbim_message *message,
 	char *imsi;
 	char *iccid;
 	uint32_t ready_info;
+	uint32_t ready_flags;
 	bool r;
 
 	DBG("");
@@ -426,9 +437,16 @@ static void mbim_subscriber_ready_status_cb(struct mbim_message *message,
 		goto error;
 
 	/* We don't bother parsing MSISDN/MDN array */
-	r = mbim_message_get_arguments(message, "ussu",
-					&ready_state, &imsi,
-					&iccid, &ready_info);
+	if (mbim_device_check_mbimex_version(sd->device, 3, 0)) {
+		r = mbim_message_get_arguments(message, "uussu",
+						&ready_state, &ready_flags, &imsi,
+						&iccid, &ready_info);
+	} else {
+		r = mbim_message_get_arguments(message, "ussu",
+						&ready_state, &imsi,
+						&iccid, &ready_info);
+	}
+
 	if (!r)
 		goto error;
 
