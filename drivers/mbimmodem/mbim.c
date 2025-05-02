@@ -107,6 +107,11 @@ const uint8_t mbim_context_type_local[] = {
 	0x03, 0x3C, 0x39, 0xF6, 0x0D, 0xB9,
 };
 
+const uint8_t mbim_ms_basic_connect_extensions[] = {
+	0x3D, 0x01, 0xDC, 0xC5, 0xFE, 0xF5, 0x4D, 0x05, 0x0D, 0x3A,
+	0xBE, 0xF7, 0x05, 0x8E, 0x9A, 0xAF,
+};
+
 struct message_assembly_node {
 	struct mbim_message_header msg_hdr;
 	struct mbim_fragment_header frag_hdr;
@@ -252,6 +257,11 @@ struct mbim_device {
 	struct l_queue *notifications;
 	struct message_assembly *assembly;
 	struct l_idle *close_io;
+
+	uint8_t mbim_version_major;
+	uint8_t mbim_version_minor;
+	uint8_t mbimex_version_major;
+	uint8_t mbimex_version_minor;
 
 	bool is_ready : 1;
 	bool in_notify : 1;
@@ -879,6 +889,22 @@ static bool close_read_handler(struct l_io *io, void *user_data)
 	return true;
 }
 
+static void parse_mbim_version(struct mbim_message *message, void *user_data)
+{
+	struct mbim_device *device = user_data;
+	uint16_t mbim_version = 0, mbimex_version = 0;
+
+	if (mbim_message_get_error(message) != 0)
+		return;
+
+	mbim_message_get_arguments(message, "qq", &mbim_version, &mbimex_version);
+
+	device->mbim_version_major = mbim_version >> 8;
+	device->mbim_version_minor = mbim_version & 0xFF;
+	device->mbimex_version_major = mbimex_version >> 8;
+	device->mbimex_version_minor = mbimex_version & 0xFF;
+}
+
 struct mbim_device *mbim_device_new(int fd, uint32_t max_segment_size)
 {
 	struct mbim_device *device;
@@ -1037,6 +1063,35 @@ bool mbim_device_set_ready_handler(struct mbim_device *device,
 	device->ready_data = user_data;
 
 	return true;
+}
+
+void mbim_device_get_version(struct mbim_device *device)
+{
+	// Version is formatted as (major version) << 8 | (minor version)
+	const int mbim_version = 1 << 8 | 0;
+
+	// Always open with MBIMEx 3, devices not supporting it will fallback to MBIMEx 2
+	const int mbimex_version = 3 << 8 | 0;
+
+	struct mbim_message *message = mbim_message_new(mbim_ms_basic_connect_extensions,
+					MBIM_CID_MS_BASIC_CONNECT_EXTENSIONS_VERSION,
+					MBIM_COMMAND_TYPE_QUERY);
+
+	mbim_message_set_arguments(message, "qq",
+								mbim_version,
+								mbimex_version);
+
+	// For some reason, sending a message will return an error code, even if valid
+	mbim_device_send(device, 0, message,
+						parse_mbim_version, device, NULL);
+}
+
+bool mbim_device_check_mbimex_version(struct mbim_device *device,
+					int version_major, int version_minor)
+{
+	return (device->mbimex_version_major > version_major) ||
+			((device->mbimex_version_major == version_major) &&
+			(device->mbimex_version_minor >= version_minor));
 }
 
 uint32_t mbim_device_send(struct mbim_device *device, uint32_t gid,

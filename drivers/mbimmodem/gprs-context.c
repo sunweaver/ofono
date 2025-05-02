@@ -102,9 +102,16 @@ static void mbim_gprs_deactivate_primary(struct ofono_gprs_context *gc,
 	message = mbim_message_new(mbim_uuid_basic_connect,
 					MBIM_CID_CONNECT,
 					MBIM_COMMAND_TYPE_SET);
-	mbim_message_set_arguments(message, "uusssuuu16y",
-					cid, 0, NULL, NULL, NULL, 0, 0, 0,
-					mbim_context_type_internet);
+
+	if (mbim_device_check_mbimex_version(gcd->device, 3, 0)) {
+		mbim_message_set_arguments(message, "uuuuu16yussss",
+						cid, 0, 0, 0, 0, mbim_context_type_internet,
+						0, NULL, NULL, NULL, NULL);
+	} else {
+		mbim_message_set_arguments(message, "uusssuuu16y",
+						cid, 0, NULL, NULL, NULL, 0, 0, 0,
+						mbim_context_type_internet);
+	}
 
 	if (mbim_device_send(gcd->device, GPRS_CONTEXT_GROUP, message,
 				mbim_deactivate_cb, gc, NULL) > 0)
@@ -288,10 +295,18 @@ error:
 	message = mbim_message_new(mbim_uuid_basic_connect,
 					MBIM_CID_CONNECT,
 					MBIM_COMMAND_TYPE_SET);
-	mbim_message_set_arguments(message, "uusssuuu16y",
+
+	if (mbim_device_check_mbimex_version(gcd->device, 3, 0)) {
+		mbim_message_set_arguments(message, "uuuuu16yussss",
+					gcd->active_context, 0, 0, 0, 0,
+					mbim_context_type_internet, 0, NULL,
+					NULL, NULL, NULL);
+	} else {
+		mbim_message_set_arguments(message, "uusssuuu16y",
 					gcd->active_context, 0,
 					NULL, NULL, NULL, 0, 0, 0,
 					mbim_context_type_internet);
+	}
 
 	if (!mbim_device_send(gcd->device, GPRS_CONTEXT_GROUP, message,
 				NULL, NULL, NULL))
@@ -352,16 +367,32 @@ static void mbim_gprs_activate_primary(struct ofono_gprs_context *gc,
 	message = mbim_message_new(mbim_uuid_basic_connect,
 					MBIM_CID_CONNECT,
 					MBIM_COMMAND_TYPE_SET);
-	mbim_message_set_arguments(message, "uusssuuu16y",
-				ctx->cid,
-				1, /* MBIMActivationCommandActivate */
-				ctx->apn,
-				username,
-				password,
-				0, /*MBIMCompressionNone */
-				auth_method_to_auth_protocol(ctx->auth_method),
-				proto_to_context_ip_type(ctx->proto),
-				mbim_context_type_internet);
+
+	if (mbim_device_check_mbimex_version(gcd->device, 3, 0)) {
+		mbim_message_set_arguments(message, "uuuuu16yussss",
+			ctx->cid,
+			1, // Activate
+			0, // Compression
+			auth_method_to_auth_protocol(ctx->auth_method),
+			proto_to_context_ip_type(ctx->proto),
+			mbim_context_type_internet,
+			0, // MbimMediaTypeNone
+			ctx->apn,
+			username,
+			password,
+			NULL);
+	} else {
+		mbim_message_set_arguments(message, "uusssuuu16y",
+			ctx->cid,
+			1, // Activate
+			ctx->apn,
+			username,
+			password,
+			0, // compression
+			auth_method_to_auth_protocol(ctx->auth_method),
+			proto_to_context_ip_type(ctx->proto),
+			mbim_context_type_internet);
+	}
 
 	if (mbim_device_send(gcd->device, GPRS_CONTEXT_GROUP, message,
 				mbim_activate_cb, gc, NULL) > 0)

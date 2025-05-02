@@ -31,6 +31,8 @@ struct mbim_message;
 #define MBIM_CID_IP_PACKET_FILTERS		23
 #define MBIM_CID_MULTICARRIER_PROVIDERS		24
 
+#define MBIM_CID_MS_BASIC_CONNECT_EXTENSIONS_VERSION	15
+
 #define MBIM_CID_SMS_CONFIGURATION		1
 #define MBIM_CID_SMS_READ			2
 #define MBIM_CID_SMS_SEND			3
@@ -87,6 +89,7 @@ extern const uint8_t mbim_uuid_phonebook[];
 extern const uint8_t mbim_uuid_stk[];
 extern const uint8_t mbim_uuid_auth[];
 extern const uint8_t mbim_uuid_dss[];
+extern const uint8_t mbim_ms_basic_connect_extensions[];
 
 extern const uint8_t mbim_context_type_none[];
 extern const uint8_t mbim_context_type_internet[];
@@ -117,6 +120,10 @@ bool mbim_device_set_ready_handler(struct mbim_device *device,
 					mbim_device_ready_func_t function,
 					void *user_data,
 					mbim_device_destroy_func_t destroy);
+
+void mbim_device_get_version(struct mbim_device *device);
+bool mbim_device_check_mbimex_version(struct mbim_device *device,
+					int version_major, int version_minor);
 
 uint32_t mbim_device_send(struct mbim_device *device, uint32_t gid,
 				struct mbim_message *message,
