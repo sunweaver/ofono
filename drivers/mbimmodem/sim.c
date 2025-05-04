@@ -18,6 +18,9 @@
 #include <ofono/modem.h>
 #include <ofono/sim.h>
 
+#include <glib.h>
+#include "simutil.h"
+
 #include "drivers/mbimmodem/mbim.h"
 #include "drivers/mbimmodem/mbim-message.h"
 #include "drivers/mbimmodem/mbimmodem.h"
@@ -74,6 +77,45 @@ static void mbim_read_imsi(struct ofono_sim *sim,
 	DBG("");
 
 	CALLBACK_WITH_SUCCESS(cb, sd->imsi, user_data);
+}
+
+static void mbim_read_file_info(struct ofono_sim *sim,
+					int fileid, const unsigned char *path,
+					unsigned int path_len,
+					ofono_sim_file_info_cb_t cb, void *user_data)
+{
+	unsigned char access[3] = {0x0f, 0xff, 0xff};
+
+	switch (fileid) {
+		case SIM_EF_ICCID_FILEID:
+			CALLBACK_WITH_SUCCESS(cb, 10, 0, 0, access, 1, user_data);
+			break;
+		default:
+			CALLBACK_WITH_FAILURE(cb, -1, -1, -1, NULL, 0, user_data);
+			break;
+	}
+}
+
+static void mbim_read_file_transparent(struct ofono_sim *sim,
+					int fileid,	int start, int length,
+					const unsigned char *path, unsigned int path_len,
+					ofono_sim_read_cb_t cb, void *user_data)
+{
+	struct sim_data *sd = ofono_sim_get_data(sim);
+	unsigned char iccid[10];
+	int iccid_len, len = strlen(sd->imsi);
+
+	sim_encode_bcd_number(sd->iccid, iccid);
+	iccid_len = len / 2;
+
+	switch (fileid) {
+		case SIM_EF_ICCID_FILEID:
+			CALLBACK_WITH_SUCCESS(cb, iccid, iccid_len, user_data);
+			break;
+		default:
+			CALLBACK_WITH_FAILURE(cb, NULL, 0, user_data);
+			break;
+	}
 }
 
 static enum ofono_sim_password_type mbim_pin_type_to_sim_password(
@@ -453,6 +495,7 @@ static void mbim_subscriber_ready_status_cb(struct mbim_message *message,
 	sd->iccid = iccid;
 	sd->imsi = imsi;
 
+	DBG("Got ICCID! %s", iccid);
 	if (!mbim_device_register(sd->device, SIM_GROUP,
 					mbim_uuid_basic_connect,
 					MBIM_CID_SUBSCRIBER_READY_STATUS,
@@ -516,6 +559,8 @@ static void mbim_sim_remove(struct ofono_sim *sim)
 static const struct ofono_sim_driver driver = {
 	.probe			= mbim_sim_probe,
 	.remove			= mbim_sim_remove,
+	.read_file_info 	= mbim_read_file_info,
+	.read_file_transparent 	= mbim_read_file_transparent,
 	.read_imsi		= mbim_read_imsi,
 	.query_passwd_state	= mbim_pin_query,
 	.query_pin_retries	= mbim_pin_retries_query,
