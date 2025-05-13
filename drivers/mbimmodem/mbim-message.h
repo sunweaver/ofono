@@ -43,6 +43,9 @@ const uint8_t *mbim_message_get_uuid(struct mbim_message *message);
 bool mbim_message_get_arguments(struct mbim_message *message,
 						const char *signature, ...);
 
+bool mbim_message_get_data(struct mbim_message *message,
+					uint32_t offset,
+					void *dest, size_t len);
 bool mbim_message_get_ipv4_address(struct mbim_message *message,
 					uint32_t offset,
 					struct in_addr *addr);

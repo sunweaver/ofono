@@ -25,13 +25,38 @@
 #include "drivers/mbimmodem/mbim-message.h"
 #include "drivers/mbimmodem/mbimmodem.h"
 
+struct sim_app {
+	enum mbim_app_type app_type;
+	uint32_t aid_len;
+	uint8_t *aid;
+	char *label;
+	uint32_t pin_key_references;
+};
+
 struct sim_data {
 	struct mbim_device *device;
+	uint32_t app_count;
+	uint32_t active_app;
+	struct sim_app *apps;
 	char *iccid;
 	char *imsi;
 	uint32_t last_pin_type;
 	bool present : 1;
 };
+
+static uint32_t mbim_file_structure_to_ofono(uint32_t file_structure)
+{
+	switch (file_structure) {
+		case 1:
+			return OFONO_SIM_FILE_STRUCTURE_TRANSPARENT;
+		case 2:
+			return OFONO_SIM_FILE_STRUCTURE_CYCLIC;
+		case 3:
+			return OFONO_SIM_FILE_STRUCTURE_FIXED;
+		default:
+			return OFONO_SIM_FILE_STRUCTURE_TRANSPARENT;
+	}
+}
 
 static void mbim_sim_state_changed(struct ofono_sim *sim, uint32_t ready_state)
 {
@@ -79,43 +104,132 @@ static void mbim_read_imsi(struct ofono_sim *sim,
 	CALLBACK_WITH_SUCCESS(cb, sd->imsi, user_data);
 }
 
-static void mbim_read_file_info(struct ofono_sim *sim,
-					int fileid, const unsigned char *path,
-					unsigned int path_len,
-					ofono_sim_file_info_cb_t cb, void *user_data)
+static void read_file_info_cb(struct mbim_message *message, void *user_data)
 {
+	struct cb_data *cbd = user_data;
+	ofono_sim_file_info_cb_t cb = cbd->cb;
 	unsigned char access[3] = {0x0f, 0xff, 0xff};
+	uint32_t version, status_word1, status_word2, file_accessibility;
+	uint32_t file_type, file_structure, file_item_count, file_item_size;
 
-	switch (fileid) {
-		case SIM_EF_ICCID_FILEID:
-			CALLBACK_WITH_SUCCESS(cb, 10, 0, 0, access, 1, user_data);
-			break;
-		default:
-			CALLBACK_WITH_FAILURE(cb, -1, -1, -1, NULL, 0, user_data);
-			break;
+	if (!mbim_message_get_error(message)) {
+		mbim_message_get_arguments(message, "uuuuuuuu", &version, &status_word1,
+					&status_word2, &file_accessibility,
+					&file_type, &file_structure,
+					&file_item_count, &file_item_size);
+
+		CALLBACK_WITH_SUCCESS(cb, file_item_size,
+					mbim_file_structure_to_ofono(file_structure),
+					file_item_size * file_item_count,
+					access, file_accessibility, cbd->data);
+	} else {
+		CALLBACK_WITH_FAILURE(cb, -1, -1, -1, NULL, -1, cbd->data);
 	}
 }
 
+static void mbim_read_file_info(struct ofono_sim *sim,
+				int fileid, const unsigned char *path,
+				unsigned int path_len,
+				ofono_sim_file_info_cb_t cb, void *user_data)
+{
+	struct sim_data *data = ofono_sim_get_data(sim);
+	struct cb_data *cbd = cb_data_new(cb, user_data);
+	struct mbim_message *message;
+	uint8_t *file_id;
+
+	message = mbim_message_new(mbim_ms_uicc_low_level_access,
+					MBIM_CID_MS_UICC_LOW_LEVEL_ACCESS_FILE_STATUS,
+					MBIM_COMMAND_TYPE_QUERY);
+
+	file_id = mbim_get_fileid(fileid);
+	mbim_message_set_arguments(message, "uayay", 1,
+					data->apps[data->active_app].aid_len,
+					data->apps[data->active_app].aid,
+					4, file_id);
+	l_free(file_id);
+
+	mbim_device_send(data->device, SIM_GROUP, message, read_file_info_cb, cbd, l_free);
+}
+
+static void read_file_cb(struct mbim_message *message, void *user_data)
+{
+	struct cb_data *cbd = user_data;
+	ofono_sim_read_cb_t cb = cbd->cb;
+	struct mbim_message_iter iter;
+	uint32_t version, status_word1, status_word2, data_size;
+	uint8_t *data = NULL;
+	int i = 0;
+
+	if (!mbim_message_get_error(message)) {
+		mbim_message_get_arguments(message, "uuuay", &version,
+						&status_word1, &status_word2,
+						&data_size, &iter);
+
+		data = l_malloc(data_size);
+		while (mbim_message_iter_next_entry(&iter, data + i)) {
+			i++;
+		}
+
+		CALLBACK_WITH_SUCCESS(cb, data, data_size, cbd->data);
+	} else {
+		CALLBACK_WITH_FAILURE(cb, NULL, 0, cbd->data);
+	}
+
+	/* The data gets copied by ofono's sim driver, so we can free it */
+	if (data)
+		l_free(data);
+}
+
 static void mbim_read_file_transparent(struct ofono_sim *sim,
-					int fileid,	int start, int length,
+					int fileid, int start, int length,
 					const unsigned char *path, unsigned int path_len,
 					ofono_sim_read_cb_t cb, void *user_data)
 {
 	struct sim_data *sd = ofono_sim_get_data(sim);
-	unsigned char iccid[10];
-	int iccid_len, len = strlen(sd->imsi);
+	struct cb_data *cbd = cb_data_new(cb, user_data);
+	struct mbim_message *message;
+	uint8_t *file_id;
 
-	sim_encode_bcd_number(sd->iccid, iccid);
-	iccid_len = len / 2;
+	message = mbim_message_new(mbim_ms_uicc_low_level_access,
+					MBIM_CID_MS_UICC_LOW_LEVEL_ACCESS_READ_BINARY,
+					MBIM_COMMAND_TYPE_QUERY);
 
-	switch (fileid) {
-		case SIM_EF_ICCID_FILEID:
-			CALLBACK_WITH_SUCCESS(cb, iccid, iccid_len, user_data);
-			break;
-		default:
-			CALLBACK_WITH_FAILURE(cb, NULL, 0, user_data);
-			break;
-	}
+	file_id = mbim_get_fileid(fileid);
+	mbim_message_set_arguments(message, "uayayuusay", 1,
+					sd->apps[sd->active_app].aid_len,
+					sd->apps[sd->active_app].aid,
+					4, file_id, start,
+					length, "", 0, NULL);
+	l_free(file_id);
+
+	mbim_device_send(sd->device, SIM_GROUP, message,
+				read_file_cb, cbd, l_free);
+}
+
+static void mbim_read_file_fixed_cyclic(struct ofono_sim *sim,
+					int fileid, int record, int length,
+					const unsigned char *path, unsigned int path_len,
+					ofono_sim_read_cb_t cb, void *data)
+{
+	struct sim_data *sd = ofono_sim_get_data(sim);
+	struct cb_data *cbd = cb_data_new(cb, data);
+	struct mbim_message *message;
+	uint8_t *file_id;
+
+	message = mbim_message_new(mbim_ms_uicc_low_level_access,
+					MBIM_CID_MS_UICC_LOW_LEVEL_ACCESS_READ_RECORD,
+					MBIM_COMMAND_TYPE_QUERY);
+
+	file_id = mbim_get_fileid(fileid);
+	mbim_message_set_arguments(message, "uayayusay", 1,
+					sd->apps[sd->active_app].aid_len,
+					sd->apps[sd->active_app].aid,
+					4, file_id, record,
+					"", 0, NULL);
+	l_free(file_id);
+
+	mbim_device_send(sd->device, SIM_GROUP, message,
+				read_file_cb, cbd, l_free);
 }
 
 static enum ofono_sim_password_type mbim_pin_type_to_sim_password(
@@ -495,7 +609,6 @@ static void mbim_subscriber_ready_status_cb(struct mbim_message *message,
 	sd->iccid = iccid;
 	sd->imsi = imsi;
 
-	DBG("Got ICCID! %s", iccid);
 	if (!mbim_device_register(sd->device, SIM_GROUP,
 					mbim_uuid_basic_connect,
 					MBIM_CID_SUBSCRIBER_READY_STATUS,
@@ -512,12 +625,83 @@ error:
 	ofono_sim_remove(sim);
 }
 
+static void mbim_sim_list_apps_cb(struct mbim_message *message,
+					void *user)
+{
+	struct sim_data *data = ofono_sim_get_data(user);
+	uint32_t version, count, active_app;
+	uint32_t application_id = 0;
+	uint32_t aid_size = 0, label_size = 0;
+	char* aid_label;
+	uint32_t new_count = 0;
+	uint32_t size = 0;
+	uint32_t offset, length;
+	void *array;
+
+	if (mbim_message_get_error(message)) {
+		return;
+	}
+
+	mbim_message_get_arguments(message, "uuuuuu", &version, &count, &active_app, &size, &offset, &length);
+
+	array = l_malloc(length);
+	data->apps = l_new(struct sim_app, count);
+	data->active_app = active_app;
+	data->app_count = count;
+
+	mbim_message_get_data(message, offset, array, length);
+
+	/* For some reason, using mbim_message_get_arguments does not work,
+	 * due to the large number of nested byte arrays in struct. Parse manually.
+	 */
+
+	offset = 0;
+	for (int i = 0; i < count; i++) {
+		int struct_offset = 0;
+		int label_offset = 0;
+
+		data->apps[i].app_type = L_LE32_TO_CPU(l_get_le32(array + offset));
+		offset += 4;
+
+		struct_offset = L_LE32_TO_CPU(l_get_le32(array + offset));
+		offset += 4;
+
+		data->apps[i].aid_len = aid_size = L_LE32_TO_CPU(l_get_le32(array + offset));
+		offset += 4;
+
+		data->apps[i].aid = l_malloc(aid_size);
+		memcpy(data->apps[i].aid, array + struct_offset, aid_size);
+
+		label_offset = L_LE32_TO_CPU(l_get_le32(array + offset));
+		offset += 4;
+
+		label_size = L_LE32_TO_CPU(l_get_le32(array + offset));
+		offset += 4;
+
+		data->apps[i].label = l_malloc(label_size + 1);
+		memcpy(data->apps[i].label, array + label_offset, label_size);
+		data->apps[i].label[label_size] = '\0';
+
+		offset += length - offset;
+	}
+
+	l_free(array);
+}
+
 static int mbim_sim_probe(struct ofono_sim *sim, unsigned int vendor,
 				void *data)
 {
 	struct mbim_device *device = data;
 	struct mbim_message *message;
 	struct sim_data *sd;
+
+	message = mbim_message_new(mbim_ms_uicc_low_level_access,
+					MBIM_CID_MS_UICC_LOW_LEVEL_ACCESS_APPLICATION_LIST,
+					MBIM_COMMAND_TYPE_QUERY);
+	mbim_message_set_arguments(message, "");
+
+	mbim_device_send(device, SIM_GROUP, message,
+			mbim_sim_list_apps_cb, sim, NULL);
 
 	message = mbim_message_new(mbim_uuid_basic_connect,
 					MBIM_CID_SUBSCRIBER_READY_STATUS,
@@ -553,6 +737,12 @@ static void mbim_sim_remove(struct ofono_sim *sim)
 
 	l_free(sd->iccid);
 	l_free(sd->imsi);
+
+	for (int i = 0; i < sd->app_count; i++) {
+		l_free(sd->apps[i].label);
+	}
+	l_free(sd->apps);
+
 	l_free(sd);
 }
 
@@ -561,6 +751,8 @@ static const struct ofono_sim_driver driver = {
 	.remove			= mbim_sim_remove,
 	.read_file_info 	= mbim_read_file_info,
 	.read_file_transparent 	= mbim_read_file_transparent,
+	.read_file_cyclic	= mbim_read_file_fixed_cyclic,
+	.read_file_linear	= mbim_read_file_fixed_cyclic,
 	.read_imsi		= mbim_read_imsi,
 	.query_passwd_state	= mbim_pin_query,
 	.query_pin_retries	= mbim_pin_retries_query,

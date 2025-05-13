@@ -33,6 +33,11 @@ struct mbim_message;
 
 #define MBIM_CID_MS_BASIC_CONNECT_EXTENSIONS_VERSION	15
 
+#define MBIM_CID_MS_UICC_LOW_LEVEL_ACCESS_APPLICATION_LIST 7
+#define MBIM_CID_MS_UICC_LOW_LEVEL_ACCESS_FILE_STATUS	8
+#define MBIM_CID_MS_UICC_LOW_LEVEL_ACCESS_READ_BINARY	9
+#define MBIM_CID_MS_UICC_LOW_LEVEL_ACCESS_READ_RECORD	10
+
 #define MBIM_CID_SMS_CONFIGURATION		1
 #define MBIM_CID_SMS_READ			2
 #define MBIM_CID_SMS_SEND			3
@@ -75,6 +80,16 @@ enum mbim_data_class {
 	MBIM_DATA_CLASS_CUSTOM		= 0x80000000,
 };
 
+enum mbim_app_type {
+	MBIM_APP_UNKNOWN,
+	MBIM_APP_MF,
+	MBIM_APP_MF_SIM,
+	MBIM_APP_MF_RUIM,
+	MBIM_APP_USIM,
+	MBIM_APP_CSIM,
+	MBIM_APP_ISIM,
+};
+
 typedef void (*mbim_device_debug_func_t) (const char *str, void *user_data);
 typedef void (*mbim_device_disconnect_func_t) (void *user_data);
 typedef void (*mbim_device_destroy_func_t) (void *user_data);
@@ -90,6 +105,7 @@ extern const uint8_t mbim_uuid_stk[];
 extern const uint8_t mbim_uuid_auth[];
 extern const uint8_t mbim_uuid_dss[];
 extern const uint8_t mbim_ms_basic_connect_extensions[];
+extern const uint8_t mbim_ms_uicc_low_level_access[];
 
 extern const uint8_t mbim_context_type_none[];
 extern const uint8_t mbim_context_type_internet[];

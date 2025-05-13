@@ -43,3 +43,4 @@ static inline struct cb_data *cb_data_new(void *cb, void *data)
 	} while (0)
 
 int mbim_data_class_to_tech(uint32_t n);
+uint8_t *mbim_get_fileid(uint32_t fileid);

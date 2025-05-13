@@ -853,6 +853,13 @@ static bool _mbim_message_get_data(struct mbim_message *message,
 	return true;
 }
 
+bool mbim_message_get_data(struct mbim_message *message,
+					uint32_t offset,
+					void *dest, size_t len)
+{
+	return _mbim_message_get_data(message, offset, dest, len);
+}
+
 bool mbim_message_get_ipv4_address(struct mbim_message *message,
 					uint32_t offset,
 					struct in_addr *addr)
