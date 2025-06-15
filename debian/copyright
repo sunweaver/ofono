@@ -1,0 +1,1375 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: oFono
+Upstream-Contact: oFono Mailing-list <ofono@lists.linux.dev>
+Source: https://git.kernel.org/pub/scm/network/ofono/ofono.git
+
+Files: drivers/atmodem/call-barring.c
+ drivers/atmodem/call-forwarding.c
+ drivers/atmodem/call-meter.c
+ drivers/atmodem/call-settings.c
+ drivers/atmodem/call-volume.c
+ drivers/atmodem/cbs.c
+ drivers/atmodem/devinfo.c
+ drivers/atmodem/gprs-context.c
+ drivers/atmodem/phonebook.c
+ drivers/atmodem/sim.c
+ drivers/atmodem/sms.c
+ drivers/atmodem/stk.c
+ drivers/atmodem/stk.h
+ drivers/atmodem/ussd.c
+ drivers/atmodem/vendor.h
+ drivers/atmodem/voicecall.c
+ drivers/calypsomodem/stk.c
+ drivers/calypsomodem/voicecall.c
+ drivers/dunmodem/network-registration.c
+ drivers/hfpmodem/call-volume.c
+ drivers/hfpmodem/siri.c
+ drivers/hfpmodem/slc.c
+ drivers/hfpmodem/slc.h
+ drivers/hfpmodem/voicecall.c
+ drivers/hsomodem/gprs-context.c
+ drivers/hsomodem/radio-settings.c
+ drivers/huaweimodem/audio-settings.c
+ drivers/huaweimodem/gprs-context.c
+ drivers/huaweimodem/radio-settings.c
+ drivers/huaweimodem/ussd.c
+ drivers/huaweimodem/voicecall.c
+ drivers/iceramodem/gprs-context.c
+ drivers/iceramodem/radio-settings.c
+ drivers/ifxmodem/audio-settings.c
+ drivers/ifxmodem/ctm.c
+ drivers/ifxmodem/gprs-context.c
+ drivers/ifxmodem/radio-settings.c
+ drivers/ifxmodem/stk.c
+ drivers/ifxmodem/voicecall.c
+ drivers/mbimmodem/devinfo.c
+ drivers/mbimmodem/gprs-context.c
+ drivers/mbimmodem/gprs.c
+ drivers/mbimmodem/mbim-desc.c
+ drivers/mbimmodem/mbim-desc.h
+ drivers/mbimmodem/mbim-message.c
+ drivers/mbimmodem/mbim-message.h
+ drivers/mbimmodem/mbim-private.h
+ drivers/mbimmodem/mbim.c
+ drivers/mbimmodem/mbim.h
+ drivers/mbimmodem/mbimmodem.h
+ drivers/mbimmodem/network-registration.c
+ drivers/mbimmodem/sim.c
+ drivers/mbimmodem/sms.c
+ drivers/mbimmodem/util.c
+ drivers/mbimmodem/util.h
+ drivers/mbmmodem/gprs-context.c
+ drivers/mbmmodem/stk.c
+ drivers/nwmodem/radio-settings.c
+ drivers/qmimodem/common.h
+ drivers/qmimodem/ctl.h
+ drivers/qmimodem/devinfo.c
+ drivers/qmimodem/dms.h
+ drivers/qmimodem/gprs-context.c
+ drivers/qmimodem/gprs.c
+ drivers/qmimodem/location-reporting.c
+ drivers/qmimodem/nas.h
+ drivers/qmimodem/network-registration.c
+ drivers/qmimodem/pds.h
+ drivers/qmimodem/qmi.c
+ drivers/qmimodem/qmi.h
+ drivers/qmimodem/radio-settings.c
+ drivers/qmimodem/sim-legacy.c
+ drivers/qmimodem/sim.c
+ drivers/qmimodem/sms.c
+ drivers/qmimodem/uim.h
+ drivers/qmimodem/util.h
+ drivers/qmimodem/wds.h
+ drivers/qmimodem/wms.h
+ drivers/rilmodem/cbs.c
+ drivers/rilmodem/lte.c
+ drivers/rilmodem/netmon.c
+ drivers/rilmodem/stk.c
+ drivers/speedupmodem/ussd.c
+ drivers/swmodem/gprs-context.c
+ drivers/telitmodem/location-reporting.c
+ drivers/xmm7modem/ims.c
+ drivers/xmm7modem/netmon.c
+ drivers/xmm7modem/radio-settings.c
+ drivers/ztemodem/radio-settings.c
+ include/audio-settings.h
+ include/call-barring.h
+ include/call-forwarding.h
+ include/call-meter.h
+ include/call-settings.h
+ include/call-volume.h
+ include/cbs.h
+ include/dbus.h
+ include/devinfo.h
+ include/emulator.h
+ include/gprs-context.h
+ include/gprs.h
+ include/handsfree-audio.h
+ include/history.h
+ include/ims.h
+ include/log.h
+ include/message-waiting.h
+ include/modem.h
+ include/netmon.h
+ include/netreg.h
+ include/plugin.h
+ include/private-network.h
+ include/sim-auth.h
+ include/sim.h
+ include/siri.h
+ include/sms.h
+ include/stk.h
+ include/types.h
+ include/ussd.h
+ include/version.h.in
+ include/voicecall.h
+ plugins/alcatel.c
+ plugins/allowed-apns.c
+ plugins/bluez5.c
+ plugins/bluez5.h
+ plugins/calypso.c
+ plugins/cinterion.c
+ plugins/connman.c
+ plugins/dun_gw_bluez5.c
+ plugins/emulator_fuzz.c
+ plugins/gobi.c
+ plugins/hfp_ag_bluez5.c
+ plugins/hfp_hf_bluez5.c
+ plugins/hso.c
+ plugins/huawei.c
+ plugins/icera.c
+ plugins/ifx.c
+ plugins/linktop.c
+ plugins/mbim.c
+ plugins/mbm.c
+ plugins/nokia.c
+ plugins/novatel.c
+ plugins/palmpre.c
+ plugins/phonesim.c
+ plugins/push-notification.c
+ plugins/samsung.c
+ plugins/sierra.c
+ plugins/sim900.c
+ plugins/smart-messaging.c
+ plugins/speedup.c
+ plugins/stktest.c
+ plugins/telit.c
+ plugins/udevng.c
+ plugins/wavecom.c
+ plugins/xmm7xxx.c
+ plugins/zte.c
+ src/audio-settings.c
+ src/bluetooth.h
+ src/call-barring.c
+ src/call-forwarding.c
+ src/call-meter.c
+ src/call-settings.c
+ src/call-volume.c
+ src/cbs.c
+ src/common.c
+ src/common.h
+ src/dbus.c
+ src/emulator.c
+ src/gprs.c
+ src/handsfree-audio.c
+ src/hfp.h
+ src/history.c
+ src/ims.c
+ src/log.c
+ src/main.c
+ src/manager.c
+ src/message-waiting.c
+ src/message.c
+ src/message.h
+ src/missing.h
+ src/modem.c
+ src/netmon.c
+ src/network.c
+ src/ofono.h
+ src/phonebook.c
+ src/plugin.c
+ src/private-network.c
+ src/sim-auth.c
+ src/sim.c
+ src/simfs.c
+ src/simfs.h
+ src/simutil.c
+ src/simutil.h
+ src/siri.c
+ src/sms.c
+ src/smsutil.c
+ src/smsutil.h
+ src/stk.c
+ src/stkagent.c
+ src/stkagent.h
+ src/stkutil.c
+ src/stkutil.h
+ src/storage.h
+ src/ussd.c
+ src/util.h
+ src/voicecall.c
+ src/watch.c
+ tools/auto-enable.c
+ tools/get-location.c
+ tools/huawei-audio.c
+ tools/stktest.c
+ tools/tty-redirector.c
+ unit/test-caif.c
+ unit/test-common.c
+ unit/test-mbim.c
+ unit/test-mux.c
+ unit/test-simutil.c
+ unit/test-sms-root.c
+ unit/test-sms.c
+ unit/test-stkutil.c
+ unit/test-util.c
+Copyright: 2008-2011, Intel Corporation
+  2008-2012, Intel Corporation
+  2008-2013, Intel Corporation
+  2008-2014, Intel Corporation
+  2008-2016, Intel Corporation
+  2011, Intel Corporation
+  2011-2012, Intel Corporation
+  2011-2014, Intel Corporation
+  2013, Intel Corporation
+  2014, Intel Corporation
+  2016, Intel Corporation
+  2017, Intel Corporation
+License: GPL-2
+
+Files: AUTHORS
+ ChangeLog
+ INSTALL
+ Makefile.am
+ NEWS
+ TODO
+ acinclude.m4
+ config.h.in
+ configure.ac
+ data/provision.json
+ doc/allowed-apns-api.txt
+ doc/audio-settings-api.txt
+ doc/call-barring-api.txt
+ doc/call-forwarding-api.txt
+ doc/call-meter-api.txt
+ doc/call-settings-api.txt
+ doc/call-volume-api.txt
+ doc/calypso-modem.txt
+ doc/cell-broadcast-api.txt
+ doc/certification.txt
+ doc/cinterion-hardware-monitor-api.txt
+ doc/connman-api.txt
+ doc/features.txt
+ doc/ims-api.txt
+ doc/location-reporting-api.txt
+ doc/lte-api.txt
+ doc/manager-api.txt
+ doc/message-api.txt
+ doc/message-waiting-api.txt
+ doc/messagemanager-api.txt
+ doc/modem-api.txt
+ doc/network-api.txt
+ doc/networkmonitor-api.txt
+ doc/ofono-paper.txt
+ doc/phonebook-api.txt
+ doc/pushnotification-api.txt
+ doc/radio-settings-api.txt
+ doc/release-faq.txt
+ doc/sim-api.txt
+ doc/siri-api.txt
+ doc/smartmessaging-api.txt
+ doc/stk-api.txt
+ doc/supplementaryservices-api.txt
+ doc/telit-modem.txt
+ doc/text-telephony-api.txt
+ doc/voicecall-api.txt
+ doc/voicecallmanager-api.txt
+ drivers/atmodem/network-registration.h
+ dundee/dundee.conf
+ dundee/dundee.service.in
+ ofono.pc.in
+ plugins/ofono-speedup.rules
+ plugins/ofono.rules
+ plugins/phonesim.conf
+ src/genbuiltin
+ src/netmonagent.c
+ src/netmonagent.h
+ src/ofono.conf
+ src/ofono.service.in
+ src/ofono.ver
+ test/activate-context
+ test/answer-calls
+ test/backtrace
+ test/cancel-sms
+ test/cancel-ussd
+ test/change-pin
+ test/create-internet-context
+ test/create-mms-context
+ test/create-multiparty
+ test/deactivate-all
+ test/deactivate-context
+ test/dial-number
+ test/disable-call-forwarding
+ test/disable-gprs
+ test/disable-modem
+ test/disable-throttling
+ test/display-icon
+ test/enable-cbs
+ test/enable-gprs
+ test/enable-modem
+ test/enable-throttling
+ test/enter-pin
+ test/get-icon
+ test/get-operators
+ test/get-serving-cell-info
+ test/get-tech-preference
+ test/hangup-active
+ test/hangup-all
+ test/hangup-call
+ test/hangup-multiparty
+ test/hold-and-answer
+ test/ims-register
+ test/ims-unregister
+ test/initiate-ussd
+ test/list-allowed-access-points
+ test/list-applications
+ test/list-calls
+ test/list-contexts
+ test/list-messages
+ test/list-modems
+ test/list-operators
+ test/lock-pin
+ test/lockdown-modem
+ test/monitor-ofono
+ test/offline-modem
+ test/online-modem
+ test/private-chat
+ test/process-context-settings
+ test/receive-sms
+ test/register-auto
+ test/register-operator
+ test/reject-calls
+ test/release-and-answer
+ test/release-and-swap
+ test/remove-contexts
+ test/reset-pin
+ test/scan-for-operators
+ test/send-sms
+ test/send-ussd
+ test/send-vcal
+ test/send-vcard
+ test/set-call-forwarding
+ test/set-cbs-topics
+ test/set-context-property
+ test/set-ddr
+ test/set-fast-dormancy
+ test/set-gsm-band
+ test/set-lte-property
+ test/set-mic-volume
+ test/set-mms-details
+ test/set-msisdn
+ test/set-roaming-allowed
+ test/set-sms-alphabet
+ test/set-sms-bearer
+ test/set-sms-smsc
+ test/set-speaker-volume
+ test/set-tech-preference
+ test/set-tty
+ test/set-umts-band
+ test/set-use-sms-reports
+ test/swap-calls
+ test/test-advice-of-charge
+ test/test-call-barring
+ test/test-call-forwarding
+ test/test-call-settings
+ test/test-cbs
+ test/test-gnss
+ test/test-message-waiting
+ test/test-modem
+ test/test-network-registration
+ test/test-phonebook
+ test/test-push-notification
+ test/test-serving-cell-info
+ test/test-smart-messaging
+ test/test-sms
+ test/test-ss
+ test/test-ss-control-cb
+ test/test-ss-control-cf
+ test/test-ss-control-cs
+ test/test-stk-menu
+ test/unlock-pin
+ unit/stk-test-data.h
+ unit/test-provision.json
+Copyright: UNKNOWN, assuming major contributors of other code files
+License: GPL-2
+Comment:
+ Assuming copyright holdership from majority of other files,
+ assuming GPL-2 as best applicable.
+
+Files: ell/acd.c
+ ell/acd.h
+ ell/asn1-private.h
+ ell/base64.c
+ ell/base64.h
+ ell/cert-crypto.c
+ ell/cert-private.h
+ ell/cert.c
+ ell/cert.h
+ ell/checksum.c
+ ell/checksum.h
+ ell/cipher.h
+ ell/cleanup.h
+ ell/dbus-filter.c
+ ell/dbus-message.c
+ ell/dbus-name-cache.c
+ ell/dbus-private.h
+ ell/dbus-service.c
+ ell/dbus-service.h
+ ell/dbus-util.c
+ ell/dbus.c
+ ell/dbus.h
+ ell/dhcp-lease.c
+ ell/dhcp-private.h
+ ell/dhcp-server.c
+ ell/dhcp-transport.c
+ ell/dhcp-util.c
+ ell/dhcp.c
+ ell/dhcp.h
+ ell/dhcp6-lease.c
+ ell/dhcp6-private.h
+ ell/dhcp6-transport.c
+ ell/dhcp6.c
+ ell/dhcp6.h
+ ell/dir.c
+ ell/dir.h
+ ell/ecc-private.h
+ ell/ecc.c
+ ell/ecc.h
+ ell/ecdh.c
+ ell/ecdh.h
+ ell/file.c
+ ell/file.h
+ ell/genl.c
+ ell/genl.h
+ ell/gvariant-private.h
+ ell/gvariant-util.c
+ ell/hashmap.c
+ ell/hashmap.h
+ ell/hwdb.c
+ ell/hwdb.h
+ ell/icmp6-private.h
+ ell/icmp6.c
+ ell/icmp6.h
+ ell/idle.c
+ ell/idle.h
+ ell/io.c
+ ell/io.h
+ ell/key.c
+ ell/key.h
+ ell/log.c
+ ell/log.h
+ ell/main-private.h
+ ell/main.c
+ ell/main.h
+ ell/missing.h
+ ell/net-private.h
+ ell/net.c
+ ell/net.h
+ ell/netconfig.c
+ ell/netconfig.h
+ ell/netlink-private.h
+ ell/netlink.c
+ ell/netlink.h
+ ell/path.c
+ ell/path.h
+ ell/pem-private.h
+ ell/pem.c
+ ell/pem.h
+ ell/private.h
+ ell/queue.c
+ ell/queue.h
+ ell/random.c
+ ell/random.h
+ ell/ringbuf.c
+ ell/ringbuf.h
+ ell/rtnl-private.h
+ ell/rtnl.c
+ ell/rtnl.h
+ ell/settings.c
+ ell/settings.h
+ ell/signal.c
+ ell/signal.h
+ ell/siphash-private.h
+ ell/siphash.c
+ ell/string.c
+ ell/string.h
+ ell/strv.c
+ ell/strv.h
+ ell/test-dbus.c
+ ell/test-private.h
+ ell/test.c
+ ell/test.h
+ ell/time-private.h
+ ell/time.c
+ ell/time.h
+ ell/timeout.c
+ ell/timeout.h
+ ell/tls-extensions.c
+ ell/tls-private.h
+ ell/tls-record.c
+ ell/tls-suites.c
+ ell/tls.c
+ ell/tls.h
+ ell/uintset.c
+ ell/uintset.h
+ ell/useful.h
+ ell/util.c
+ ell/uuid.c
+ ell/uuid.h
+Copyright: 2011-2014, Intel Corporation
+  2011-2015, Intel Corporation
+  2015, Intel Corporation
+  2015-2019, Intel Corporation
+  2016, Intel Corporation
+  2017, Intel Corporation
+  2018, Intel Corporation
+  2019, Intel Corporation
+  2020, Intel Corporation
+  2021, Intel Corporation
+  2022, Intel Corporation
+License: LGPL-2.1
+
+Files: examples/emulator.c
+ examples/history.c
+ gatchat/crc-ccitt.c
+ gatchat/crc-ccitt.h
+ gatchat/gat.h
+ gatchat/gatchat.c
+ gatchat/gatchat.h
+ gatchat/gathdlc.c
+ gatchat/gathdlc.h
+ gatchat/gatio.c
+ gatchat/gatio.h
+ gatchat/gatppp.c
+ gatchat/gatppp.h
+ gatchat/gatrawip.c
+ gatchat/gatrawip.h
+ gatchat/gatresult.c
+ gatchat/gatresult.h
+ gatchat/gatserver.c
+ gatchat/gatserver.h
+ gatchat/gatsyntax.c
+ gatchat/gatsyntax.h
+ gatchat/gattty.c
+ gatchat/gattty.h
+ gatchat/gatutil.c
+ gatchat/gatutil.h
+ gatchat/gsmdial.c
+ gatchat/ppp.h
+ gatchat/ppp_auth.c
+ gatchat/ppp_cp.c
+ gatchat/ppp_cp.h
+ gatchat/ppp_ipcp.c
+ gatchat/ppp_ipv6cp.c
+ gatchat/ppp_lcp.c
+ gatchat/ppp_net.c
+ gatchat/ringbuffer.c
+ gatchat/ringbuffer.h
+ gatchat/test-qcdm.c
+ gatchat/test-server.c
+ include/phonebook.h
+Copyright: 2008-2011, Intel Corporation.
+  2009-2011, Intel Corporation.
+License: GPL-2
+
+Files: drivers/isimodem/audio-settings.c
+ drivers/isimodem/call-barring.c
+ drivers/isimodem/call-forwarding.c
+ drivers/isimodem/call-meter.c
+ drivers/isimodem/call-settings.c
+ drivers/isimodem/call.h
+ drivers/isimodem/cbs.c
+ drivers/isimodem/debug.c
+ drivers/isimodem/debug.h
+ drivers/isimodem/devinfo.c
+ drivers/isimodem/gpds.h
+ drivers/isimodem/gprs-context.c
+ drivers/isimodem/gprs.c
+ drivers/isimodem/gss.h
+ drivers/isimodem/info.h
+ drivers/isimodem/infoserver.c
+ drivers/isimodem/infoserver.h
+ drivers/isimodem/isiutil.h
+ drivers/isimodem/mtc.h
+ drivers/isimodem/network-registration.c
+ drivers/isimodem/network.h
+ drivers/isimodem/phonebook.c
+ drivers/isimodem/radio-settings.c
+ drivers/isimodem/sim.c
+ drivers/isimodem/sim.h
+ drivers/isimodem/sms.h
+ drivers/isimodem/ss.h
+ drivers/isimodem/ussd.c
+ drivers/isimodem/voicecall.c
+ include/nettime.h
+ include/radio-settings.h
+ plugins/isiusb.c
+ plugins/n900.c
+ plugins/nokia-gpio.c
+ plugins/nokia-gpio.h
+ src/nettime.c
+ src/radio-settings.c
+ src/smsagent.c
+ src/smsagent.h
+Copyright: 2009-2010, Nokia Corporation and/or its subsidiary(-ies)
+  2009-2011, Nokia Corporation and/or its subsidiary(-ies)
+  2010, Nokia Corporation and/or its subsidiary(-ies)
+License: GPL-2
+
+Files: examples/nettime.c
+ examples/private-network.c
+ gisi/client.c
+ gisi/client.h
+ gisi/common.h
+ gisi/iter.c
+ gisi/iter.h
+ gisi/message.c
+ gisi/message.h
+ gisi/modem.c
+ gisi/modem.h
+ gisi/netlink.c
+ gisi/netlink.h
+ gisi/pep.c
+ gisi/pep.h
+ gisi/phonet.h
+ gisi/pipe.c
+ gisi/pipe.h
+ gisi/server.c
+ gisi/server.h
+ gisi/socket.c
+ gisi/socket.h
+Copyright: 2008-2010, Nokia Corporation and/or its subsidiary(-ies).
+  2009-2010, Nokia Corporation and/or its subsidiary(-ies).
+  2011, Nokia Corporation and/or its subsidiary(-ies).
+License: GPL-2
+
+Files: drivers/rilmodem/vendor.h
+ drivers/rilmodem/voicecall.h
+ plugins/infineon.c
+ plugins/ril.h
+ plugins/upower.c
+ unit/rilmodem-test-engine.c
+ unit/rilmodem-test-engine.h
+ unit/rilmodem-test-server.c
+ unit/rilmodem-test-server.h
+ unit/test-rilmodem-cb.c
+ unit/test-rilmodem-cs.c
+ unit/test-rilmodem-gprs.c
+ unit/test-rilmodem-sms.c
+Copyright: 2014, Canonical Ltd
+  2015, Canonical Ltd
+  2016, Canonical Ltd
+License: GPL-2
+
+Files: drivers/atmodem/gnss.c
+ drivers/atmodem/gprs.c
+ drivers/atmodem/network-registration.c
+ drivers/stemodem/gprs-context.c
+ drivers/stemodem/radio-settings.c
+ drivers/stemodem/stemodem.c
+ drivers/stemodem/voicecall.c
+ include/gnss.h
+ plugins/ste.c
+ src/gnss.c
+ src/gnssagent.c
+ src/gnssagent.h
+Copyright: 2008-2011, Intel Corporation
+  2010, ST-Ericsson AB
+  2011, ST-Ericsson AB
+License: GPL-2
+
+Files: drivers/hfpmodem/devinfo.c
+ drivers/hfpmodem/handsfree.c
+ dundee/device.c
+ dundee/dundee.h
+ dundee/main.c
+ dundee/manager.c
+ include/handsfree.h
+ src/handsfree.c
+Copyright: 2008-2011, Intel Corporation
+  2008-2012, Intel Corporation
+  2011, BMW Car IT GmbH
+  2012, BMW Car IT GmbH
+License: GPL-2
+
+Files: drivers/rilmodem/call-volume.c
+ drivers/rilmodem/devinfo.c
+ drivers/rilmodem/gprs-context.c
+ drivers/rilmodem/rilutil.c
+ drivers/rilmodem/rilutil.h
+ plugins/rildev.c
+Copyright: 2008-2011, Intel Corporation
+  2012, Canonical Ltd
+  2012-2013, Canonical Ltd
+  2013, Canonical Ltd
+  2014, Canonical Ltd
+License: GPL-2
+
+Files: gril/gfunc.h
+ gril/gril.h
+ gril/grilio.c
+ gril/grilio.h
+ gril/grilutil.c
+ gril/grilutil.h
+Copyright: 2008-2011, Intel Corporation.
+  2012, Canonical Ltd.
+License: GPL-2
+
+Files: drivers/isimodem/sms.c
+ drivers/isimodem/uicc-util.c
+ drivers/isimodem/uicc-util.h
+ drivers/isimodem/uicc.c
+ drivers/isimodem/uicc.h
+ plugins/u8500.c
+Copyright: 2009-2010, Nokia Corporation and/or its subsidiary(-ies)
+  2010, Nokia Corporation and/or its subsidiary(-ies)
+  2011, Nokia Corporation and/or its subsidiary(-ies)
+  2011, ST-Ericsson AB
+License: GPL-2
+
+Files: gdbus/client.c
+ gdbus/gdbus.h
+ gdbus/mainloop.c
+ gdbus/object.c
+ gdbus/polkit.c
+ gdbus/watch.c
+Copyright: 2004-2011, Marcel Holtmann <marcel@holtmann.org>
+License: GPL-2+
+
+Files: src/module.c
+ src/provision.c
+ tools/provisiontool
+ unit/test-provision.c
+ unit/test-qmimodem-qmi.c
+Copyright: 2023, Cruise, LLC
+  2024, Cruise, LLC
+License: GPL-2
+
+Files: drivers/qmimodem/wda.c
+ drivers/qmimodem/wds.c
+ ell/notifylist.c
+ ell/notifylist.h
+ src/provisiondb.c
+ src/provisiondb.h
+ src/rmnet.c
+ src/rmnet.h
+Copyright: 2023, Cruise, LLC
+  2024, Cruise, LLC
+License: LGPL-2.1
+
+Files: drivers/rilmodem/sms.c
+ drivers/rilmodem/voicecall.c
+ plugins/ril.c
+ plugins/ril_intel.c
+Copyright: 2008-2011, Intel Corporation
+  2008-2015, Intel Corporation
+  2012-2013, Canonical Ltd
+  2012-2014, Canonical Ltd
+  2013, Jolla Ltd
+License: GPL-2
+
+Files: drivers/atmodem/atutil.c
+ drivers/atmodem/atutil.h
+ drivers/atmodem/lte.c
+ drivers/gemaltomodem/voicecall.c
+Copyright: 2008-2011, Intel Corporation
+  2017, Intel Corporation
+  2018, Gemalto M2M
+License: GPL-2
+
+Files: gatchat/gatmux.c
+ gatchat/gatmux.h
+ gatchat/gsm0710.c
+ gatchat/gsm0710.h
+Copyright: 2008-2011, Intel Corporation.
+  2009, Trolltech ASA.
+  2011, Intel Corporation.
+License: GPL-2
+
+Files: build-aux/compile
+ build-aux/depcomp
+ build-aux/missing
+ build-aux/tap-driver.sh
+ build-aux/test-driver
+Copyright: 1996-2021, Free Software Foundation, Inc.
+  1999-2021, Free Software Foundation, Inc.
+  2011-2021, Free Software Foundation, Inc.
+License: GPL-2+~with~autoconf-data~exception
+
+Files: drivers/rilmodem/call-settings.c
+ drivers/rilmodem/radio-settings.c
+ drivers/rilmodem/ussd.c
+Copyright: 2008-2011, Intel Corporation
+  2013, Canonical Lt
+  2013, Jolla Lt
+  2014, Canonical Lt
+License: GPL-2
+
+Files: drivers/ubloxmodem/lte.c
+ drivers/ubloxmodem/ubloxmodem.c
+ drivers/ubloxmodem/ubloxmodem.h
+Copyright: 2016, Endocode AG
+License: GPL-2
+
+Files: drivers/gemaltomodem/radio-settings.c
+ drivers/quectelmodem/radio-settings.c
+ drivers/simcommodem/radio-settings.c
+Copyright: 2017, Intel Corporation
+  2021, Sergey Matyukevich
+License: GPL-2
+
+Files: drivers/qmimodem/call-barring.c
+ drivers/qmimodem/call-forwarding.c
+ drivers/qmimodem/call-settings.c
+Copyright: 2024, Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+License: GPL-2
+
+Files: drivers/stemodem/caif_rtnl.c
+ drivers/stemodem/caif_rtnl.h
+ plugins/stemgr.c
+Copyright: 2010, ST-Ericsson AB
+  2011, ST-Ericsson AB
+License: GPL-2
+
+Files: ell/minheap.c
+ ell/sysctl.c
+ ell/sysctl.h
+Copyright: 2012, Intel Corporation
+  2023, Cruise LLC
+License: LGPL-2.1
+
+Files: build-aux/ltoptions.m4
+ build-aux/lt~obsolete.m4
+Copyright: 2004-2005, 2007, 2009, 2011-2019, 2021-2022, Free
+  2004-2005, 2007-2009, 2011-2019, 2021-2022, Free
+License: FSFULLR
+
+Files: drivers/gemaltomodem/netmon.c
+ linux/gsmmux.h
+Copyright: NONE
+License: GPL-2
+
+Files: drivers/dunmodem/gprs.c
+ dundee/dbus.c
+Copyright: 2011, BMW Car IT GmbH
+  2012, BMW Car IT GmbH
+License: GPL-2
+
+Files: drivers/rilmodem/gprs.c
+ drivers/rilmodem/network-registration.c
+Copyright: 2008-2011, Intel Corporation
+  2010, ST-Ericsson AB
+  2012-2013, Canonical Ltd
+  2013, Canonical Ltd
+  2013, Jolla Ltd
+License: GPL-2
+
+Files: drivers/infineonmodem/infineon_constants.h
+ gril/ril_constants.h
+Copyright: 2013, Canonical Ltd.
+  2014, Canonical Ltd.
+License: GPL-2
+
+Files: plugins/qrtrqmi.c
+ src/storage.c
+Copyright: 2008-2011, Intel Corporation
+  2008-2012, Intel Corporation
+  2024, Cruise, LLC
+License: GPL-2
+
+Files: drivers/ubloxmodem/gprs-context.c
+ drivers/ubloxmodem/netmon.c
+Copyright: 2016, EndoCode AG
+License: GPL-2
+
+Files: include/lte.h
+ src/lte.c
+Copyright: 2016, Endocode AG
+  2018, Gemalto M2M
+License: GPL-2
+
+Files: drivers/gemaltomodem/models.h
+ plugins/gemalto.c
+Copyright: 2017, Vincent Cesson
+  2018, Gemalto M2M
+License: GPL-2
+
+Files: include/ctm.h
+ src/ctm.c
+Copyright: 2010, Nokia Corporation and/or its subsidiary(-ies)
+  2011, Intel Corporation
+License: GPL-2
+
+Files: drivers/hfpmodem/network-registration.c
+ drivers/mbmmodem/location-reporting.c
+Copyright: 2008-2011, Intel Corporation
+  2009, ProFUSION embedded systems
+  2010, ProFUSION embedded systems
+License: GPL-2
+
+Files: drivers/qmimodem/nas.c
+ drivers/qmimodem/netmon.c
+Copyright: 2017, Jonas Bonn
+License: GPL-2
+
+Files: plugins/quectel.c
+ plugins/ublox.c
+Copyright: 2014, Philip Paeps
+License: GPL-2
+
+Files: build-aux/config.guess
+ build-aux/config.sub
+Copyright: 1992-2022, Free Software Foundation, Inc.
+License: GPL-3+~with~autoconf-data~exception
+
+Files: ell/dbus-client.c
+ ell/dbus-client.h
+Copyright: 2011-2014, Intel Corporation
+  2017, Codecoup
+License: LGPL-2.1
+
+Files: ell/utf8.c
+ ell/utf8.h
+Copyright: 2011-2014, Intel Corporation
+  2024, Cruise, LLC
+License: LGPL-2.1
+
+Files: ell/gpio.c
+ ell/gpio.h
+Copyright: 2019, Geanix
+License: LGPL-2.1
+
+Files: README
+ doc/overview.txt
+Copyright: 2008-2011, Intel Corporation.
+License: GPL-2
+Comment:
+ Assuming license from COPYING file.
+
+Files: drivers/stemodem/caif_socket.h
+ drivers/stemodem/if_caif.h
+Copyright: ST-Ericsson AB 2010
+License: GPL-2
+
+Files: build-aux/ltmain.sh
+Copyright: 1996-2019, 2021-2022, Free Software Foundation, Inc.
+  2004-2019, 2021, Bootstrap Authors
+  2010-2019, 2021, Bootstrap Authors
+License: GPL-2+~with~Libtool~exception
+
+Files: configure
+Copyright: 1992-1996, 1998-2017, 2020-2023, Free Software Foundation,
+  2014, Free Software Foundation, Inc.
+  2023, Free Software Foundation, Inc.
+License: configure
+ This configure script is free software; the Free Software Foundation
+ gives unlimited permission to copy, distribute and modify it.
+Comment:
+ Generated file.
+
+Files: build-aux/libtool.m4
+Copyright: 1996-2001, 2003-2019, 2021-2022, Free Software
+  2011, Free Software Foundation, Inc.
+  2014, Free Software Foundation, Inc.
+License: GPL-2+~with~Libtool~exception
+
+Files: aclocal.m4
+Copyright: 1996-2021, Free Software Foundation, Inc.
+  1997-2021, Free Software Foundation, Inc.
+  1999-2021, Free Software Foundation, Inc.
+  2001-2021, Free Software Foundation, Inc.
+  2002-2021, Free Software Foundation, Inc.
+  2003-2021, Free Software Foundation, Inc.
+  2004, Scott James Remnant <scott@netsplit.com>.
+  2004-2021, Free Software Foundation, Inc.
+  2006-2021, Free Software Foundation, Inc.
+  2009-2021, Free Software Foundation, Inc.
+  2012-2015, Dan Nicholson <dbn.lists@gmail.com>
+License: GPL-2+~with~autoconf-data~exception
+
+Files: ell/ecc-external.c
+Copyright: 2013, Kenneth MacKay
+License: BSD-2-clause
+
+Files: ell/util.h
+Copyright: 2011-2014, Intel Corporation
+  2015, Christophe Meessen
+License: LGPL-2.1+
+
+Files: build-aux/ltsugar.m4
+Copyright: 2004-2005, 2007-2008, 2011-2019, 2021-2022, Free Software
+License: FSFULLR
+
+Files: build-aux/ltversion.m4
+Copyright: 2004, 2011-2019, 2021-2022, Free Software Foundation,
+License: FSFULLR
+
+Files: drivers/qmimodem/voicecall.c
+Copyright: 2011-2012, Intel Corporation
+  2024, Adam Pigg <adam@piggz.co.uk>
+License: GPL-2
+
+Files: drivers/rilmodem/call-barring.c
+Copyright: 2014, Canonical Lt
+  2014, Jolla Lt
+License: GPL-2
+
+Files: drivers/rilmodem/call-forwarding.c
+Copyright: 2008-2011, Intel Corporation
+  2013, Jolla Lt
+  2014, Canonical Ltd
+License: GPL-2
+
+Files: gril/gril.c
+Copyright: 2008-2011, Intel Corporation.
+  2012-2013, Canonical Ltd.
+  2013, Jolla Ltd.
+License: GPL-2
+
+Files: drivers/rilmodem/sim.c
+Copyright: 2008-2011, Intel Corporation
+  2013, Canonical, Ltd
+  2015, Ratchanan Srirattanamet
+License: GPL-2
+
+Files: plugins/g1.c
+Copyright: 2008-2011, Intel Corporation
+  2009, Collabora Ltd
+License: GPL-2
+
+Files: plugins/droid.c
+Copyright: 2008-2011, Intel Corporation
+  2009, Collabora Ltd
+  2020, Pavel Machek
+License: GPL-2
+
+Files: plugins/sim7100.c
+Copyright: 2008-2011, Intel Corporation
+  2009, Collabora Ltd
+  2018, Purism SPC
+License: GPL-2
+
+Files: tools/lookup-apn.c
+Copyright: 2008-2011, Intel Corporation.
+  2023, Cruise, LLC
+License: GPL-2
+
+Files: drivers/qmimodem/lte.c
+Copyright: 2018, Data Respons ASA
+  2018, Jonas Bonn
+  2018, Norrbonn AB
+License: GPL-2
+
+Files: dundee/bluez5.c
+Copyright: 2013, Instituto Nokia de Tecnologia - INdT
+License: GPL-2
+
+Files: src/location-reporting.c
+Copyright: 2010, Nokia Corporation and/or its subsidiary(-ies)
+  2011, Intel Corporation
+  2011, ProFUSION embedded systems
+License: GPL-2
+
+Files: drivers/ubloxmodem/network-registration.c
+Copyright: 2008-2011, Intel Corporation
+  2010, ST-Ericsson AB
+  2019, Norrbonn AB
+License: GPL-2
+
+Files: drivers/qmimodem/ussd.c
+Copyright: 2011-2012, Intel Corporation
+  2017, sysmocom s.f.m.c. GmbH <info@sysmocom.de>
+License: GPL-2
+
+Files: include/storage.h
+Copyright: 2017, Jolla Ltd
+License: GPL-2
+
+Files: drivers/qmimodem/wda.h
+Copyright: 2017, Kerlink SA
+License: GPL-2
+
+Files: linux/gpio.h
+Copyright: 2016, Linus Walleij
+License: GPL-2
+
+Files: include/location-reporting.h
+Copyright: 2010, Nokia Corporation and/or its subsidiary(-ies)
+  2010, ProFUSION embedded systems
+License: GPL-2
+
+Files: drivers/telitmodem/gprs-context-ncm.c
+Copyright: 2017, Piotr Haber
+License: GPL-2
+
+Files: drivers/gemaltomodem/gprs-context.c
+Copyright: 2020, Sergey Matyukevich
+License: GPL-2
+
+Files: drivers/gemaltomodem/location-reporting.c
+Copyright: 2017, Vincent Cesson
+License: GPL-2
+
+Files: drivers/qmimodem/voice.h
+Copyright: 2017, sysmocom s.f.m.c. GmbH <info@sysmocom.de>
+License: GPL-2
+
+Files: src/util.c
+Copyright: 2000, Unicode, Inc.
+  2008-2011, Intel Corporation
+  2009-2010, Nokia Corporation and/or its subsidiary(-ies)
+License: GPL-2 and Unicode-strict
+
+Files: gril/parcel.c
+Copyright: 2011, Joel Armstrong <jcarmst@sandia.gov>
+  2012, Canonical Ltd.
+License: GPL-2+
+
+Files: gril/parcel.h
+Copyright: 2011, Joel Armstrong <jcarmst@sandia.gov>
+License: GPL-2+
+
+Files: ell/minheap.h
+Copyright: 2023, Cruise LLC
+License: LGPL-2.1
+
+Files: ell/cipher.c
+Copyright: 2001, Niels M\x{00f6}ller
+  2015, Intel Corporation
+License: LGPL-2.1
+
+Files: doc/ofonod.8
+Copyright: 2009, Collabora Ltd.
+License: GPL-2
+Comment:
+ Assuming license from COPYING file.
+
+Files: Makefile.in
+Copyright: 1994-2021, Free Software Foundation, Inc.
+License: Makefile.in
+ This Makefile.in is free software; the Free Software Foundation
+ gives unlimited permission to copy and/or distribute it,
+ with or without modifications, as long as this notice is preserved.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+ even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ PARTICULAR PURPOSE.
+
+Files: build-aux/install-sh
+Copyright: 1994, X Consortium
+License: MIT~X11
+
+Files: debian/*
+Copyright: 2009, Andres Salomon <dilinger@collabora.co.uk>
+ 2024-2025, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+ 2025-2025, Sicelo A. Mhlongo <absicsz@gmail.com>
+License: GPL-2
+Comment:
+ Various contributors to ofono did not add themselves to this
+ copyright block. Leaving it as is, but adding myself (@sunweaver).
+
+License: GPL-2
+ This package is free software; you can redistribute it and/or modify it
+ under the terms of the GNU General Public License version 2 as
+ published by the Free Software Foundation.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: GPL-2+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: LGPL-2.1
+ This package is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License version 2.1 as published by the Free Software Foundation.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU Lesser General
+ Public License can be found in "/usr/share/common-licenses/LGPL-2".
+
+License: LGPL-2.1+
+ This package is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU Lesser General
+ Public License can be found in "/usr/share/common-licenses/LGPL-2".
+
+License: Unicode-strict
+ This file is provided as-is by Unicode, Inc. (The Unicode Consortium).
+ No claims are made as to fitness for any particular purpose.  No
+ warranties of any kind are expressed or implied.  The recipient
+ agrees to determine applicability of information provided.  If this
+ file has been provided on optical media by Unicode, Inc., the sole
+ remedy for any claim will be exchange of defective media within 90
+ days of receipt.
+ .
+ Unicode, Inc. hereby grants the right to freely use the information
+ supplied in this file in the creation of products supporting the
+ Unicode Standard, and to make copies of this file in any form for
+ internal or external distribution as long as this notice remains
+ attached.
+
+License: MIT~X11
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to
+ deal in the Software without restriction, including without limitation the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+ X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+ AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNEC-
+ TION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ .
+ Except as contained in this notice, the name of the X Consortium shall not
+ be used in advertising or otherwise to promote the sale, use or other deal-
+ ings in this Software without prior written authorization from the X Consor-
+ tium.
+
+License: GPL-2+~with~autoconf-data~exception
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public
+ License along with this package; if not, write to the Free
+ Software Foundation, Inc., 31 Milk Street, # 960789, Boston,
+ MA 02196, USA.
+ .
+ As a special exception to the GNU General Public License, if you
+ distribute this file as part of a program that contains a
+ configuration script generated by Autoconf, you may include it under
+ the same distribution terms that you use for the rest of that
+ program.
+
+License: GPL-3+~with~autoconf-data~exception
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public
+ License along with this package; if not, write to the Free
+ Software Foundation, Inc., 31 Milk Street, # 960789, Boston,
+ MA 02196, USA.
+ .
+ As a special exception to the GNU General Public License, if you
+ distribute this file as part of a program that contains a
+ configuration script generated by Autoconf, you may include it under
+ the same distribution terms that you use for the rest of that
+ program.
+
+License: GPL-2+~with~libtool~exception
+ GNU Libtool is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ As a special exception to the GNU General Public License,
+ if you distribute this file as part of a program or library that
+ is built using GNU Libtool, you may include this file under the
+ same distribution terms that you use for the rest of that program.
+ .
+ GNU Libtool is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+License: FSFULLR
+ This file is free software; the Free Software Foundation gives
+ unlimited permission to copy and/or distribute it, with or without
+ modifications, as long as this notice is preserved.
+
+License: BSD-2-clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are
+ met:
+ .
+  * Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  * Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

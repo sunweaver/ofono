@@ -1,0 +1,17 @@
+DAEMON_OPTS=
+
+### FCC unlocking
+
+# You probably may want to enable the below options when using e.g. Lomiri.
+# Please also read /usr/share/doc/ofono/README.Debian for further background and
+# instructions.
+
+# FCC-unlock GSM modems with a valid script/executable in /etc/ofono/fcc-unlock.d/ (at boot).
+# Vendor scripts/executables in ${libdir}/ofono/fcc-unlock.d/ are also honoured.
+FCC_UNLOCK=0
+
+# If we FCC-unlock GSM modems, shall we keep the modem enabled / powered-up?
+FCC_UNLOCK_MODEM_ENABLED=0
+
+# If we FCC-unlock GSM modems, shall we bring the modem online afterwards?
+FCC_UNLOCK_MODEM_ONLINE=0

@@ -1,0 +1,50 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+include /usr/share/dpkg/buildflags.mk
+
+include /usr/share/dpkg/architecture.mk
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- --libdir=/usr/lib \
+                             --enable-bluetooth \
+                             --enable-dundee \
+                             --with-systemdunitdir=/usr/lib/systemd/system
+
+override_dh_auto_build:
+	dh_auto_build
+	sed -e "s/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/" < debian/bin/ofono-fcc-unlock.in > debian/bin/ofono-fcc-unlock
+
+override_dh_installinit:
+	dh_installinit --name=dundee
+	dh_installinit
+
+override_dh_install:
+	install -D -m 0644 plugins/ofono.rules debian/tmp/usr/lib/udev/rules.d/97-ofono.rules
+	install -D -m 0644 plugins/ofono-speedup.rules debian/tmp/usr/lib/udev/rules.d/97-ofono-speedup.rules
+
+	# Obtain various FCC unlock vendor scripts from modemmanager at build-time. Unfortunately, we can't
+	# do this at runtime as ofono and modemmanager installed in parallel compete for modem hardware control.
+	mkdir -p debian/tmp/usr/share/ofono/fcc-unlock.available.d/
+	cp -av /usr/share/ModemManager/fcc-unlock.available.d/* debian/tmp/usr/share/ofono/fcc-unlock.available.d/
+
+	dh_install
+
+override_dh_installsystemd:
+	dh_installsystemd
+	dh_installsystemd --no-start --name ofono-fcc-unlock
+
+override_dh_fixperms-indep:
+	chmod 0755 debian/ofono-scripts/usr/share/ofono/scripts/set-sms-alphabet
+	chmod 0755 debian/ofono-scripts/usr/share/ofono/scripts/test-serving-cell-info
+	dh_fixperms -i
+
+override_dh_auto_test:
+	dh_auto_test --no-parallel
+
+override_dh_clean:
+	dh_clean
+	-rm debian/bin/ofono-fcc-unlock

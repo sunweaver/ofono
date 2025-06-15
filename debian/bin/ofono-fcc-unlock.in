@@ -1,0 +1,82 @@
+#!/bin/bash
+
+# Copyright (C) 2025 Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+#
+# This package is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+# .
+# This package is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# .
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>
+# .
+# On Debian systems, the complete text of the GNU General
+# Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+# Rudimentary approach for ofono in Debian to run FCC unlock scripts
+# at boot, following the scheme of ModemManager:
+# https://modemmanager.org/docs/modemmanager/fcc-unlock/
+
+FCC_UNLOCK=1
+FCC_UNLOCK_MODEM_ENABLED=1
+FCC_UNLOCK_MODEM_ONLINE=1
+
+# Check /etc/default/ofono for configuration:
+if [[ -r "/etc/default/ofono" ]]; then
+	. /etc/default/ofono
+fi
+
+if ! echo "x${FCC_UNLOCK}x" | grep -q -E '^x(1|(Y|y)(E|e)(S|s)|(T|t)(R|r)(U|u)(E|e))x$'; then
+	echo "ofono-fcc-unlock disabled via /etc/default/ofono, skipping FCC unlocking..."
+	exit 0
+fi
+
+# This script only works if ofono-scripts are installed!
+if [[ ! -x /usr/share/ofono/scripts/list-modems ]] ||
+   [[ ! -x /usr/share/ofono/scripts/enable-modem ]] ||
+   [[ ! -x /usr/share/ofono/scripts/online-modem ]]; then
+	echo "ofono-scripts are not installed, skipping FCC unlocking..."
+	exit 0
+fi
+
+/usr/share/ofono/scripts/list-modems | confget -q sections -f - | while read ofonodev; do
+
+	syspath=$(/usr/share/ofono/scripts/list-modems | confget -f - -s "${ofonodev}" -L SystemPath | cut -d"=" -f2)
+	powered=$(/usr/share/ofono/scripts/list-modems | confget -f - -s "${ofonodev}" -L Powered | cut -d"=" -f2)
+
+	if [[ -e "${syspath}/vendor" ]] && [[ -e "${syspath}/device" ]]; then
+
+		wwanX="$(ls "${syspath}/wwan" | head -n1)"
+		wwanXatX="$(find ${syspath}/wwan/${wwanX}/${wwanX}*/type | while read type_file; do type=$(cat $type_file); if [ "x${type}" = "xAT" ]; then echo $(basename $(dirname $type_file)) | cut -d "/" -f6; break; fi; done)"
+		vendor="$(cat "${syspath}/vendor" | sed -e 's/^0x//')"
+		device="$(cat "${syspath}/device" | sed -e 's/^0x//')"
+
+		for fcc_unlock_d in /usr/lib/@DEB_HOST_MULTIARCH@/ofono/fcc-unlock.d \
+		                    /etc/ofono/fcc-unlock.d; do
+
+			fcc_unlock_script="${fcc_unlock_d}/$vendor:$device"
+
+			if [[ -x "${fcc_unlock_script}" ]]; then
+				# bring up the modem device
+				if [[ "x$powered" = "x0" ]]; then
+					/usr/share/ofono/scripts/enable-modem "${ofonodev}"
+				fi
+				${fcc_unlock_script} ww "${wwanXatX}" 
+
+				if ! echo "x${FCC_UNLOCK_MODEM_ENABLED}x" | grep -q -E '^x(1|(Y|y)(E|e)(S|s)|(T|t)(R|r)(U|u)(E|e))x$'; then
+					/usr/share/ofono/scripts/disable-modem "${ofonodev}"
+				else
+					if echo "x${FCC_UNLOCK_MODEM_ONLINE}x" | grep -q -E '^x(1|(Y|y)(E|e)(S|s)|(T|t)(R|r)(U|u)(E|e))x$'; then
+						/usr/share/ofono/scripts/online-modem "${ofonodev}"
+					fi
+				fi
+
+				break
+			fi
+		done
+	fi
+done

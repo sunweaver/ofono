@@ -1,0 +1,20 @@
+ofono FCC unlocking
+===================
+
+If you are using a mobile device with integrated WWAN module, a manual
+configuration step may be needed after installing or upgrading ofono,
+otherwise the module might NOT be useable.
+
+Starting with release 2.16-4, Debian's ofono comes with a helper script
+that allows one to automize the (so called) FCC unlocking step required
+before a WWAN module becomes actually usable.
+
+You can enable auto-FCC-unlocking AT YOUR OWN RISK by creating symlinks
+in /etc/ofono/fcc-unlock.d:
+
+ sudo ln -sft /etc/ofono/fcc-unlock.d /usr/share/ofono/fcc-unlock.available.d/*
+
+The helper script can be found at /usr/sbin/ofono-fcc-unlock. Some
+configuration paramters are at /etc/default/ofono. The ofono-fcc-unlock
+script is executed at system boot via the oneshot-systemd-service
+ofono-fcc-unlock.service.

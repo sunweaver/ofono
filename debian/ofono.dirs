@@ -1,0 +1,5 @@
+#!/usr/bin/dh-exec
+
+/etc/ofono/fcc-unlock.d
+/usr/lib/${DEB_HOST_MULTIARCH}/ofono/fcc-unlock.d
+/var/lib/ofono

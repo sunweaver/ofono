@@ -1,0 +1,11 @@
+[Unit]
+Description=Process ofono's fcc-unlock.d/ scripts at boot
+Before=NetworkManager.service connman.service systemd-networkd.service
+After=ofono.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/ofono-fcc-unlock
+
+[Install]
+WantedBy=multi-user.target
